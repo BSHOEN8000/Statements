@@ -1,0 +1,46 @@
+function findFlights()
+    {
+    var yourDestination = readTheDestination();
+    var yourAirline = readTheAirline();
+    var yourFare = readTheFare();
+
+
+    if (yourDestination == 'Choose your destination')
+        {
+        displayMessage('<B>Please choose a destination city from the Destination menu and then click Find flights again.</B>');
+        }
+    else
+        {
+        var destinationTime, destinationOperator, destinationFare;
+        var message = '<B>You asked about flights to ' + yourDestination + '</B><BR>' + "";
+
+        for (var i=0; i < flightTimes.length; i++)                      //flight destinations
+        {
+        if    // statement                                              // IF flight:
+           ((flightDestinations[i] == yourDestination &&                // destination = selected destination &
+            yourAirline == 'Any airline' &&                             // airline = any airline &
+            yourFare == 'Any price'))                                    // fare <= chosen fare
+            ||                                                          // OR
+           (flightDestinations[i] == yourDestination &&                // destination = selected destination &
+           yourAirline == flightOperators[i] &&                        // airline = chosen airline &
+           yourFare <= flightFares[i]))                                // fare <= chosen fare
+
+            {
+            destinationTime = flightTimes[i];
+            destinationOperator = flightOperators[i];
+            destinationFare = flightFares[i];
+
+
+
+            message += destinationTime + ' ' + destinationOperator + '. £' + destinationFare + '<BR>';
+            displayMessage(message);
+
+            }
+        }
+        else if (flightDestinations[i] == yourDestination && 
+                flightOperators[i] != yourAirline && 
+                flightFares[i] != yourFare)
+            {
+            displayMessage('There are no flights to ' + yourDestination + ' with ' + yourAirline + '. Please select Any Airline and try again.');
+            }
+        }
